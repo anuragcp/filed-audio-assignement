@@ -34,3 +34,30 @@ def audio_file_delete(audioFileType, audioFileID):
             'status': 400,
             'description': 'Bad Request'
         }
+
+def audio_file_get(audioFileType, audioFileID):
+    if audioFileType == 'song':
+        return song.get(audioFileID)
+    elif audioFileType == 'podcast':
+        return podcast.get(audioFileID)
+    elif audioFileType == 'audiobook':
+        return audiobook.get(audioFileID)
+    else:
+        return {
+            'status': 400,
+            'description': 'Bad Request'
+        }
+def audio_file_update(audioFileType, audioFileID, data):
+    audioFileType = data['audioFileType']
+    audioFileMetadata = data['audioFileMetadata']
+    if audioFileType == 'song':
+        return song.update(audioFileID, audioFileMetadata)
+    elif audioFileType == 'podcast':
+        return podcast.update(audioFileID, audioFileMetadata)
+    elif audioFileType == 'audiobook':
+        return audiobook.update(audioFileID, audioFileMetadata)
+    else:
+        return {
+            'status': 400,
+            'description': 'Bad Request'
+        }
