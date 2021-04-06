@@ -12,16 +12,5 @@ try:
 except ImportError:
     print("ERROR: [models/songs] while importing modules")
 
-try:
-    from flask import current_app as app
-except ImportError:
-    print("ERROR: [models/songs] while importing current_app object")
 
-class Models(object):
-    def __init__(self):
-        self.app = app
-
-    def initialise(self):
-        db = MongoEngine()
-        db.init_app(app)
-        return db
+db = MongoEngine()

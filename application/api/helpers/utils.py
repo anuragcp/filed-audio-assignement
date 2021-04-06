@@ -7,8 +7,11 @@ if project_path not in sys.path:
     sys.path.insert(0, project_path)
 
 
-def required(data, key_list=[]):
-    if data.keys() == key_list:
-        return True
-    else:
-        return False
+def required(data, key_required=[]):
+    for key in key_required:
+        if key not in list(data.keys()):
+            print(False)
+            return False
+
+    print(True)
+    return True
