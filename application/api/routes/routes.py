@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, json
+from flask import Blueprint, jsonify, request, json, make_response
 
 api = Blueprint('api', __name__, url_prefix='/audio')
 
@@ -9,7 +9,7 @@ from application.api.controllers import audio_file
 def create():
     data = request.json
     res = audio_file.audio_file_create(data=data)
-    return jsonify(res)
+    return make_response(jsonify(res['description']), res['status'])
 
 
 @api.route('/<audioFileType>/<audioFileID>', methods=['GET', 'DELETE', 'PUT'])
@@ -21,4 +21,6 @@ def handle(audioFileType,audioFileID):
     elif request.method == 'PUT':
         data = request.json
         res = audio_file.audio_file_update(audioFileType, int(audioFileID), data)
-    return jsonify(res)
+    else:
+        res = {'description': "Bad Request", 'status':400}
+    return make_response(jsonify(res['description']), res['status'])
