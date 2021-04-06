@@ -9,12 +9,16 @@ from application.models.songs import Songs
 from .utils import required
 
 def create(audioFileMetadata):
+    print(f"keys = {list(audioFileMetadata.keys())}")
     if required(data=audioFileMetadata, key_list=['name', 'duration']):
-        songObj = Songs(name=audioFileMetadata['name'], duration=['duration']).save()
+        songObj = Songs(name=audioFileMetadata['name'], duration=audioFileMetadata['duration']).save()
 
-        #send response to client
+        if songObj is not None:
+            return {'status':200}
+        else:
+            return {'status': 400}
     else:
-        pass
+        return {'status': 500}
         #send 500 error
 
 def delete():

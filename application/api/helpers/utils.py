@@ -8,7 +8,7 @@ if project_path not in sys.path:
 
 
 def required(data, key_list=[]):
-    if data.keys() == key_list:
+    if list(data.keys()) == key_list:
         return True
     else:
         return False

@@ -2,7 +2,7 @@ import os
 class DevelopmentConfig(object):
     """Base config class."""
     # Flask app config
-    DEBUG = False
+    DEBUG = True
     TESTING = False
     SECRET_KEY = "your_key"
     # Root path of project

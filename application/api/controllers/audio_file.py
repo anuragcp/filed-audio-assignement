@@ -7,3 +7,5 @@ if project_path not in sys.path:
 
 from application.api.helpers import song, podcast, audiobook
 
+def create(audioFileMetadata):
+    return song.create(audioFileMetadata)

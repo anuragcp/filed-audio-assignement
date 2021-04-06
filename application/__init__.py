@@ -15,6 +15,8 @@ from config import load_config
 
 from application.api.routes.routes import api
 from app import site
+from application.models import db
+from flask_mongoengine import MongoEngine
 
 # convert python's encoding to utf8
 try:
@@ -41,6 +43,8 @@ def create_app():
     app.register_blueprint(api)
     app.register_blueprint(site)
     print("Blueprint registered")
+    db.init_app(app)
+    print('Database initialised')
     return app
 # def register_extensions(app):
 #     """Register models."""
