@@ -7,6 +7,7 @@ if project_path not in sys.path:
 
 from datetime import datetime
 from application.models import db
+from mongoengine.errors import ValidationError
 
 
 class Podcast(db.Document):
@@ -25,3 +26,7 @@ class Podcast(db.Document):
     #         self.participants = values['participants']
     #     except:
     #         print('Bad arguments for Podcast')
+
+    def clean(self):
+        if self.duration < 0:
+            raise ValidationError("Error : duration must be a positive value.")

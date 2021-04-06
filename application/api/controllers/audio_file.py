@@ -21,3 +21,16 @@ def audio_file_create(data):
             'status': 400,
             'description': 'Bad Request'
         }
+
+def audio_file_delete(audioFileType, audioFileID):
+    if audioFileType == 'song':
+        return song.delete(audioFileID)
+    elif audioFileType == 'podcast':
+        return podcast.delete(audioFileID)
+    elif audioFileType == 'audiobook':
+        return audiobook.delete(audioFileID)
+    else:
+        return {
+            'status': 400,
+            'description': 'Bad Request'
+        }
