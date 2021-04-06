@@ -7,22 +7,33 @@ if project_path not in sys.path:
 
 from application.models.songs import Songs
 from .utils import required
+from mongoengine.errors import ValidationError
 
 def create(audioFileMetadata):
-    print(f"keys = {list(audioFileMetadata.keys())}")
+    if required(data=audioFileMetadata, key_required=['name', 'duration']):
+        try:
+            songObj = Songs(name=audioFileMetadata['name'], duration=audioFileMetadata['duration']).save()
+
+            if songObj is not None:
+                return {'status':200}
+        except ValidationError as e:
+            return {'status': 500, 'description': f"Internal Server Error {str(e)}"}
+    else:
+        return {'status': 400, 'description': 'bad request: check arguments'}
+        #send 500 error
+
+
+def delete(audioFileMetadata):
     if required(data=audioFileMetadata, key_list=['name', 'duration']):
         songObj = Songs(name=audioFileMetadata['name'], duration=audioFileMetadata['duration']).save()
 
         if songObj is not None:
-            return {'status':200}
+            return {'status': 200}
         else:
-            return {'status': 400}
+            return {'status': 500}
     else:
-        return {'status': 500}
-        #send 500 error
-
-def delete():
-    pass
+        return {'status': 400}
+        # send 500 error
 
 def update():
     pass

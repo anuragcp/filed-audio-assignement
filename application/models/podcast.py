@@ -17,11 +17,11 @@ class Podcast(db.Document):
     participants = db.ListField(db.StringField(max_length=100), max_length = 10)
     uploaded_on = db.DateTimeField(default = datetime.utcnow)
     # def __init__(self, **values):
-    #     super(model.Document, self).__init__(self)
+    #     super(db.Document, self).__init__(self)
     #     try:
     #         self.name = values['name']
     #         self.duration = values['duration']
     #         self.host = values["host"]
     #         self.participants = values['participants']
     #     except:
-    #         print('Bad arguments for User')
+    #         print('Bad arguments for Podcast')

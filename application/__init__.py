@@ -32,7 +32,7 @@ def create_app():
     if not hasattr(app, 'production'):
         app.production = not app.debug and not app.testing
     # CSRF protect
-    CSRFProtect(app)
+    # CSRFProtect(app)
     # if app.debug or app.testing:
     #     # Log errors to stderr in production mode
     #     app.logger.addHandler(logging.StreamHandler())

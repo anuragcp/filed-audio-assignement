@@ -7,5 +7,17 @@ if project_path not in sys.path:
 
 from application.api.helpers import song, podcast, audiobook
 
-def create(audioFileMetadata):
-    return song.create(audioFileMetadata)
+def audio_file_create(data):
+    audioFileType = data['audioFileType']
+    audioFileMetadata = data['audioFileMetadata']
+    if audioFileType == 'song':
+        return song.create(audioFileMetadata)
+    elif audioFileType == 'podcast':
+        return podcast.create(audioFileMetadata)
+    elif audioFileType == 'audiobook':
+        return audiobook.create(audioFileMetadata)
+    else:
+        return {
+            'status': 400,
+            'description': 'Bad Request'
+        }

@@ -8,7 +8,10 @@ if project_path not in sys.path:
 
 
 def required(data, key_required=[]):
-    for key in list(data.keys()):
-        if key not in key_required:
+    for key in key_required:
+        if key not in list(data.keys()):
+            print(False)
             return False
+
+    print(True)
     return True
