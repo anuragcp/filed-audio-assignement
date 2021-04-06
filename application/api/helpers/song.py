@@ -33,8 +33,32 @@ def delete(audioFileID):
     except DoesNotExist as e:
         return {'status': 500, 'description': f"Internal Server Error {str(e)}"}
 
-def update():
-    pass
+def update(audioFileID, audioFileMetadata):
+    try:
+        document = Songs.objects(id=audioFileID)
+        if len(document) == 0:
+            return {'status': 400, 'description': 'bad request: file does not exists'}
+        document[0].update(set__name = audioFileMetadata['name'] if audioFileMetadata.get('name') is not None else document[0].name)
+        document[0].update(
+            set__duration=int(audioFileMetadata['duration']) if audioFileMetadata.get('duration') is not None else document[0].duration)
+        return {'status': 200}
+    except Exception as e:
+        return {'status': 500, 'description':"Internal Server Error str(e)"}
 
-def get():
-    pass
+def get(audioFileID):
+    try:
+        document = Songs.objects(id=audioFileID)
+        if len(document) == 0:
+            return {'status': 400, 'description': 'bad request: file does not exists'}
+        print(document)
+        return {
+            'data': {
+                'id': document[0].id,
+                'name': document[0].name,
+                'duration': document[0].duration,
+                'uploaded_on': document[0].uploaded_on
+            },
+            'status': 200
+        }
+    except DoesNotExist as e:
+        return {'status': 500, 'description': f"Internal Server Error {str(e)}"}
