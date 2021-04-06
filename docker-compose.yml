@@ -14,3 +14,17 @@ services:
     restart: always
     ports:
       - "8081:8081"
+
+  flask:
+    build:
+      context: ./
+      dockerfile: DockerFile
+    depends_on:
+      - mongo
+      - mongo-express
+    ports:
+      - "5000:5000"
+    restart: always
+    environment:
+      - FLASK_ENV=developement
+      - FLASK_APP=manage.py

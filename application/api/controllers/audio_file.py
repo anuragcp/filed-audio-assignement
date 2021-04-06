@@ -19,7 +19,7 @@ def audio_file_create(data):
     else:
         return {
             'status': 400,
-            'description': 'Bad Request'
+            'result': 'Bad Request'
         }
 
 def audio_file_delete(audioFileType, audioFileID):
@@ -32,7 +32,7 @@ def audio_file_delete(audioFileType, audioFileID):
     else:
         return {
             'status': 400,
-            'description': 'Bad Request'
+            'result': 'Bad Request'
         }
 
 def audio_file_get(audioFileType, audioFileID):
@@ -45,7 +45,7 @@ def audio_file_get(audioFileType, audioFileID):
     else:
         return {
             'status': 400,
-            'description': 'Bad Request'
+            'result': 'Bad Request'
         }
 def audio_file_update(audioFileType, audioFileID, data):
     audioFileType = data['audioFileType']
@@ -59,5 +59,5 @@ def audio_file_update(audioFileType, audioFileID, data):
     else:
         return {
             'status': 400,
-            'description': 'Bad Request'
+            'result': 'Bad Request'
         }

@@ -18,31 +18,31 @@ def create(audioFileMetadata):
                              participants = audioFileMetadata.get('participants') ).save()
 
             if podObj is not None:
-                return {'status':200}
+                return {'status':200, 'result': 'Success'}
         except ValidationError as e:
-            return {'status': 500, 'description': f"Internal Server Error {str(e)}"}
+            return {'status': 500, 'result': f"Internal Server Error {str(e)}"}
     else:
-        return {'status': 400, 'description': 'bad request: check arguments'}
+        return {'status': 400, 'result': 'bad request: check arguments'}
         #send 500 error
 
 def delete(audioFileID):
     try:
         document = Podcast.objects(id=audioFileID)
         if len(document) == 0:
-            return {'status': 400, 'description': 'bad request: file does not exists'}
+            return {'status': 400, 'result': 'bad request: file does not exists'}
         document.delete()
-        return {'status': 200}
+        return {'status': 200, 'result': 'Success'}
     except DoesNotExist as e:
-        return {'status': 500, 'description': f"Internal Server Error {str(e)}"}
+        return {'status': 500, 'result': f"Internal Server Error {str(e)}"}
 
 def get(audioFileID):
     try:
         document = Podcast.objects(id=audioFileID)
         if len(document) == 0:
-            return {'status': 400, 'description': 'bad request: file does not exists'}
+            return {'status': 400, 'result': 'bad request: file does not exists'}
         print(document)
         return {
-            'data' :{
+            'result' :{
                 'id': document[0].id,
                 'name': document[0].name,
                 'duration': document[0].duration,
@@ -53,13 +53,13 @@ def get(audioFileID):
             'status': 200
         }
     except DoesNotExist as e:
-        return {'status': 500, 'description': f"Internal Server Error {str(e)}"}
+        return {'status': 500, 'result': f"Internal Server Error {str(e)}"}
 
 def update(audioFileID, audioFileMetadata):
     try:
         document = Podcast.objects(id=audioFileID)
         if len(document) == 0:
-            return {'status': 400, 'description': 'bad request: file does not exists'}
+            return {'status': 400, 'result': 'bad request: file does not exists'}
         document[0].update(set__name = audioFileMetadata['name'] if audioFileMetadata.get('name') is not None else document[0].name)
         document[0].update(
             set__duration=int(audioFileMetadata['duration']) if audioFileMetadata.get('duration') is not None else document[0].duration)
@@ -69,6 +69,6 @@ def update(audioFileID, audioFileMetadata):
         document[0].update(
             set__participants=audioFileMetadata['participants'] if audioFileMetadata.get('participants') is not None else
             document[0].participants)
-        return {'status': 200}
+        return {'status': 200, 'result': 'Success'}
     except Exception as e:
-        return {'status': 500, 'description':"Internal Server Error str(e)"}
+        return {'status': 500, 'result':"Internal Server Error str(e)"}

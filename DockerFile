@@ -1,0 +1,10 @@
+FROM python:3.8
+WORKDIR /filed-audio-assignment
+ADD . /filed-audio-assignment
+# RUN chmod +x ./scripts.sh \
+#     && ./scripts.sh
+# RUN export FLASK_ENV=developement
+# RUN export FLASK_APP=manage.py
+EXPOSE 5000
+RUN pip install -r requirements.txt
+CMD ["gunicorn", "--bind", "0.0.0.0:5000","manage:app"]
