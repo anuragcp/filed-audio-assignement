@@ -12,8 +12,8 @@ def create():
     return jsonify(res)
 
 
-@api.route('/<audioFileType>/<audioFileID>')
-def delete(audioFileType,audioFileID):
-    audioFileMetadata = {'name': 'anuragcp', 'duration': 10}
-    res = audio_file.song.delete()
+@api.route('/<audioFileType>/<audioFileID>', methods=['GET'])
+def handle(audioFileType,audioFileID):
+    if request.method == 'GET':
+        res = audio_file.audio_file_delete(audioFileType, int(audioFileID))
     return jsonify(res)

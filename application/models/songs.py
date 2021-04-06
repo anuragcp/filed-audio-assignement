@@ -6,8 +6,8 @@ if project_path not in sys.path:
     sys.path.insert(0, project_path)
 
 from datetime import datetime
-from mongoengine import Document, SequenceField, StringField, IntField, DateTimeField
 from application.models import db
+from mongoengine.errors import ValidationError
 
 class Songs(db.Document):
     id = db.SequenceField(primary_key = True)
@@ -20,4 +20,8 @@ class Songs(db.Document):
     #         self.name = kwargs['name']
     #         self.duration = kwargs['duration']
     #     except:
-    #         print('Bad arguments for User')
+    #         print('Bad arguments for Songs')
+
+    def clean(self):
+        if self.duration < 0:
+            raise ValidationError("Error : duration must be a positive value.")

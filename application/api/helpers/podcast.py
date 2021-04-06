@@ -7,7 +7,7 @@ if project_path not in sys.path:
 
 from application.models.podcast import Podcast
 from .utils import required
-from mongoengine.errors import ValidationError
+from mongoengine.errors import ValidationError, DoesNotExist
 
 def create(audioFileMetadata):
     if required(data=audioFileMetadata, key_required=['name', 'duration', 'host']):
@@ -24,3 +24,13 @@ def create(audioFileMetadata):
     else:
         return {'status': 400, 'description': 'bad request: check arguments'}
         #send 500 error
+
+def delete(audioFileID):
+    try:
+        document = Podcast.objects(id=audioFileID)
+        if len(document) == 0:
+            return {'status': 400, 'description': 'bad request: file does not exists'}
+        document.delete()
+        return {'status': 200}
+    except DoesNotExist as e:
+        return {'status': 500, 'description': f"Internal Server Error {str(e)}"}
