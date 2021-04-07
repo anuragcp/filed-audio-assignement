@@ -10,7 +10,7 @@
 4. run `docker-compose up --build`
 
 * Falsk application api endpoints
-  > * create new audio file - http://0.0.0.0:5000/audio/create [POST method]
+  > * create new audio file - `http://0.0.0.0:5000/audio/create` [POST method]
   >   ```
   >   // test case 1 - song JSON
   >     {
@@ -43,8 +43,8 @@
   >       }
   >     }
   >   ```
-  > * delete existing file - http://0.0.0.0:5000/audio/<audioFileType>/<audioFileId> [DELETE method]
-  > * update existing file - http://0.0.0.0:5000/audio/<audioFileType>/<audioFileId> [PUT method]
+  > * delete existing file - `http://0.0.0.0:5000/audio/<audioFileType>/<audioFileId>` [DELETE method]
+  > * update existing file - `http://0.0.0.0:5000/audio/<audioFileType>/<audioFileId>` [PUT method]
   >   ```
   >   // test case 1 - song JSON
   >     {
@@ -74,4 +74,4 @@
   >       }
   >     }
   >   ```
-  > * get existing file - http://0.0.0.0:5000/audio/<audioFileType>/<audioFileId> [GET method]
+  > * get existing file - `http://0.0.0.0:5000/audio/<audioFileType>/<audioFileId>` [GET method]
