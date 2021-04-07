@@ -52,7 +52,7 @@ def get(audioFileID):
             return {'status': 400, 'result': 'bad request: file does not exists'}
         print(document)
         return {
-            'data': {
+            'result': {
                 'id': document[0].id,
                 'name': document[0].name,
                 'duration': document[0].duration,
