@@ -1,0 +1,240 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "sean",
+    "version": "1.0.0",
+    "title": "filed-audio-assignment",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Audio Request",
+      "description": "Example API for requesting and return book requests"
+    }
+  ],
+  "paths": {
+    "/audio/{audioFileType}/{audioFileId}": {
+      "get": {
+        "summary": "Get audioFile",
+        "parameters": [
+          {
+            "name": "audioFileType",
+            "in": "path",
+            "required": true,
+            "description": "Type of audio file",
+            "type": "string"
+          },
+          {
+            "name": "audioFileId",
+            "in": "path",
+            "required": true,
+            "description": "Id of audioFile",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A single audioFile"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "delete audioFile",
+        "parameters": [
+          {
+            "name": "audioFileType",
+            "in": "path",
+            "required": true,
+            "description": "Type of audio file",
+            "type": "string"
+          },
+          {
+            "name": "audioFileId",
+            "in": "path",
+            "required": true,
+            "description": "Id of audioFile",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A single audioFile"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "summary": "delete audioFile",
+        "parameters": [
+          {
+            "name": "audioFileType",
+            "in": "path",
+            "required": true,
+            "description": "Type of audio file",
+            "type": "string"
+          },
+          {
+            "name": "audioFileId",
+            "in": "path",
+            "required": true,
+            "description": "Id of audioFile",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A single audioFile"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/audio/create": {
+      "post": {
+        "tags": [
+          "Upload Audio"
+        ],
+        "summary": "Uploads audio files [songs, podcast, audiobook]",
+        "requestBody": {
+          "description": "ausioFile data",
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf":[
+                  {"$ref": "#/definitions/createAudioSongFile"},
+                  {"$ref": "#/definitions/createAudioPodcastFile"},
+                  {"$ref": "#/definitions/createAudioAudiobookFile"}
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    }
+  },
+  "definitions":{
+    "result": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "string",
+          "format": "string"
+        }
+      }
+    },
+    "createAudioSongFile": {
+      "type": "object",
+      "properties": {
+        "audioFileType": {
+          "type": "string",
+          "format": "string"
+        },
+        "audioFileMetadata": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "format": "string"
+            },
+            "duration": {
+              "type": "number",
+              "format": "number"
+            }
+          }
+        }
+      }
+    },
+    "createAudioPodcastFile": {
+      "type": "object",
+      "properties": {
+        "audioFileType": {
+          "type": "string",
+          "format": "string"
+        },
+        "audioFileMetadata": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "format": "string"
+            },
+            "duration": {
+              "type": "number",
+              "format": "number"
+            },
+            "participants": {
+              "type": "array",
+              "items": "string"
+            }
+          }
+        }
+      }
+    },
+    "createAudioAudiobookFile": {
+      "type": "object",
+      "properties": {
+        "audioFileType": {
+          "type": "string",
+          "format": "string"
+        },
+        "audioFileMetadata": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "format": "string"
+            },
+            "duration": {
+              "type": "number",
+              "format": "number"
+            },
+            "author": {
+              "type": "string",
+              "format": "string"
+            },
+            "narrator": {
+              "type": "string",
+              "format": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
